@@ -4,7 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.lang.Math;
+import java.util.UUID;
 import com.example.demo.Administrator;
 
 public class adminDao extends baseDao {
@@ -13,6 +13,9 @@ public class adminDao extends baseDao {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	/*
+	 * 管理员登录软件
+	 */
 	public Administrator login(String uname,String upassword) throws Exception{
 		
 		Administrator admin = null;
@@ -34,17 +37,19 @@ public class adminDao extends baseDao {
 		return admin;
 		
 	}
+	/*
+	 * 管理员注册
+	 */
 	public  Administrator register(String uname,String upassword) throws SQLException{
 		Administrator user=null;
-		int userid =(int)( Math.random()*1000);
-		
-	       String sql ="Insert into admin (userid,uname,upassword) values(?,?,?)";
-	       this.ConnetOrcl();
-	       PreparedStatement ps = this.conn.prepareStatement(sql);
-	       ps.setObject(1, userid);
-	       ps.setObject(2, uname);
-	       ps.setObject(3, upassword);
-	       	ps.setInt(1, userid);
+			String userid= UUID.randomUUID().toString();
+	        String sql ="Insert into admin (userid,uname,upassword) values(?,?,?)";
+	        this.ConnetOrcl();
+	        PreparedStatement ps = this.conn.prepareStatement(sql);
+	        ps.setObject(1, userid);
+	        ps.setObject(2, uname);
+	        ps.setObject(3, upassword);
+	       	ps.setString(1, userid);
 			ps.setString(2, uname);
 			ps.setString(3, upassword);
 			ps.executeUpdate();
@@ -52,6 +57,9 @@ public class adminDao extends baseDao {
 			
 		return user;
 	}
+	/*
+	 * 查询用户是否已经注册
+	 */
 	public boolean find(String uname) throws SQLException
 	{
 		boolean b=false;
@@ -66,6 +74,9 @@ public class adminDao extends baseDao {
 		}
 		return b;
 	}
+	/*
+	 * 查看用户的详情
+	 */
 	public  Administrator MyAccount(String uname) throws SQLException
 	{
 		Administrator user=null;
@@ -81,6 +92,9 @@ public class adminDao extends baseDao {
 		}
 		return user;
 	}
+	/*
+	 * 查看用户列表
+	 */
 	public ArrayList<String> ShowUser() throws SQLException
 	{
 		ArrayList<String> list = new ArrayList<String>();

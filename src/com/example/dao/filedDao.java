@@ -12,6 +12,9 @@ public class filedDao extends baseDao{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	/*
+	 * 显示field列表
+	 */
 
 	public ArrayList<Field> show() throws SQLException{
 		
@@ -22,7 +25,7 @@ public class filedDao extends baseDao{
 		ResultSet rs =ps.executeQuery();
 		while(rs.next()){
 			Field filed =new Field();
-			filed.setFid(rs.getInt(1));
+			filed.setFid(rs.getString(1));
 			filed.setFname(rs.getString(4));
 			int end =rs.getString(5).length();
 			if(end>=30){
@@ -31,13 +34,16 @@ public class filedDao extends baseDao{
 			{
 			}
 			filed.setFtext(rs.getString(5).substring(0,end));
-			filed.setUserid(rs.getInt(3));
+			filed.setUserid(rs.getString(3));
 			filed.setFdate(rs.getDate(7));
 			flist.add(filed);
 		}
 		return flist;
 	}
-	public Field filedcheck(int fid) throws SQLException{
+	/*
+	 * 显示field详情
+	 */
+	public Field filedcheck(String fid) throws SQLException{
 		Field f = new Field();
 		String sql="select * from filed where fid=?";
 		this.ConnetOrcl();
@@ -47,9 +53,9 @@ public class filedDao extends baseDao{
 		while(rs.next()){
 			f.setFid(fid);
 			f.setFdate(rs.getDate(7));
-			f.setFatherid(rs.getInt(6));
-			f.setPid(rs.getInt(2));
-			f.setUserid(rs.getInt(3));
+			f.setFatherid(rs.getString(6));
+			f.setPid(rs.getString(2));
+			f.setUserid(rs.getString(3));
 			f.setFname(rs.getString(4));
 			f.setFtext(rs.getString(5));
 		}
@@ -69,7 +75,10 @@ public class filedDao extends baseDao{
 		}
 		return f;
 	}
-	public void deletefiled(int fid) throws SQLException{
+	/*
+	 * 删除filed
+	 */
+	public void deletefiled(String fid) throws SQLException{
 		String sql="delete from filed where fid = ?";
 		this.ConnetOrcl();
 		java.sql.PreparedStatement ps = this.conn.prepareStatement(sql);

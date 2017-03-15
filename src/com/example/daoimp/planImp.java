@@ -20,7 +20,7 @@ public ArrayList<Plan> show(){
 	}
 	return plist;
 }
-public ArrayList<Plan> ShowDetail(int userid){
+public ArrayList<Plan> ShowDetail(String userid){
 	ArrayList<Plan> planlist =new ArrayList<Plan>();
 	planDao dao =new planDao();
 	try {
@@ -33,7 +33,7 @@ public ArrayList<Plan> ShowDetail(int userid){
 	}
 	return planlist;
 }
-public Plan PlanCheck(int pid){
+public Plan PlanCheck(String pid){
 	Plan plan =new Plan();
 	planDao dao = new planDao();
 	try {

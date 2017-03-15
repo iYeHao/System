@@ -44,7 +44,7 @@ public class FiledDeleteServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		filedImp imp =new filedImp();
-		int fid=Integer.parseInt(request.getParameter("fid"));
+		String fid=request.getParameter("fid");
 		imp.deletefiled(fid);
 		request.getRequestDispatcher("FieldlistServlet").forward(request, response);
 	}

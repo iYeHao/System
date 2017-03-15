@@ -46,7 +46,7 @@ public class FiledCheckServlet extends HttpServlet {
 
 		filedImp imp =new filedImp();
 		Field f =new Field();
-		int fid =Integer.parseInt(request.getParameter("fid"));
+		String fid =request.getParameter("fid");
 		f=imp.filedcheck(fid);
 		request.setAttribute("f", f);
 		request.getRequestDispatcher("/filed_check.jsp").forward(request, response);

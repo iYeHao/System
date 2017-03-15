@@ -1,17 +1,17 @@
 package com.example.demo;
 
 public class User {
-	private int userid;
+	private String userid;
 	private String uemail;
 	private String uname;
 	private String upassword;
 	private int uage;
 	private int ulevel;
 	private String usex;
-	public void setUserid(int userid){
+	public void setUserid(String userid){
 		this.userid=userid;
 	}
-	public int getUserid(){
+	public String getUserid(){
 		return userid;
 	}
 	public void setUemail(String uemail){

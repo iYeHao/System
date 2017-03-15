@@ -46,7 +46,7 @@ public class PlanCheckServlet extends HttpServlet {
 			throws ServletException, IOException {
 		Plan plan = new Plan();
 		planImp imp = new planImp();
-		int pid = Integer.parseInt(request.getParameter("pid"));
+		String pid =request.getParameter("pid");
 		plan=imp.PlanCheck(pid);
 		request.setAttribute("plan", plan);
 		request.getRequestDispatcher("/plan_check.jsp").forward(request, response);

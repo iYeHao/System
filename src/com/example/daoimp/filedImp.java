@@ -22,7 +22,7 @@ public class filedImp {
 		return flist;
 		
 	}
-	public Field filedcheck(int fid){
+	public Field filedcheck(String fid){
 		Field f =new Field();
 		filedDao dao =new filedDao();
 		try {
@@ -35,7 +35,7 @@ public class filedImp {
 		}
 		return f;
 	}
-	public void deletefiled(int fid){
+	public void deletefiled(String fid){
 		filedDao dao =new filedDao();
 		try {
 			dao.deletefiled(fid);

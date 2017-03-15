@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*" import="com.example.demo.Register" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
@@ -7,6 +7,8 @@ HttpSession session1= request.getSession();
 String uname=(String)session1.getAttribute("uname");
 	if(uname==null){uname="我的账户";}
 	request.setAttribute("uname", uname);
+	Register form =(Register)request.getAttribute("form");
+	request.setAttribute("form", form);
 %>
 <!doctype html>
 <html lang="en">
@@ -128,19 +130,20 @@ String uname=(String)session1.getAttribute("uname");
                             <label style="margin-left:20px"><span class="STYLE2"><span class="STYLE3">用户名</span>：<br>
                             </span><br>
                             </label>
-							<input style="margin-left:40px" type="text" name="uname" />
+							<input style="margin-left:40px" type="text" name="uname" /><c:out value="${form.errors.uname }"></c:out>
                         </p>
                         <p class="col">
                             <label style="margin-left:20px"> <span class="STYLE3">密码</span>：</label>
                         </p>
                         <p class="col">
                           <input style="margin-left:40px" type="password"  name="upassword" />
+                          <c:out value="${form.errors.upassword }"></c:out>
                         </p>
                         <p>
                             <label style="margin-left:20px" ><span class="STYLE3">确认密码</span>：</label>
                         </p>
                         <p>
-                          <input style="margin-left:40px" type="password"  name="repassword" />
+                          <input style="margin-left:40px" type="password"  name="repassword" /> <c:out value="${form.errors.cpassword }"></c:out>
                         </p>
                         <p> 
  <input style="margin-left:40px" type="submit" value="添加"class="btn btn-large"  />

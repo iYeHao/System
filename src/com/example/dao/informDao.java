@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import com.example.demo.Information;
 
@@ -14,6 +15,9 @@ public class informDao extends baseDao {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	/*
+	 * 通告列表
+	 */
 
 	public ArrayList<Information> show()throws Exception{
 		
@@ -42,14 +46,16 @@ public class informDao extends baseDao {
 		
 		 return  list;
 	}
-	
+	/*
+	 * 添加通告
+	 */
 	public  Information  addinform(String author,String title,String text, Date date) throws SQLException{
 		 Information inf =new Information();
-		int informid =(int)( Math.random()*1000);
+			String informid=UUID.randomUUID().toString();
 	       String sql ="Insert into inform (informid,author,inf_date,title,text) values(?,?,?,?,?)";
 	       this.ConnetOrcl();
 	       PreparedStatement ps = this.conn.prepareStatement(sql);
-	       	ps.setInt(1, informid);
+	       	ps.setString(1, informid);
 			ps.setString(2, author);
 			ps.setDate(3, date);
 			ps.setString(4, title);
@@ -58,6 +64,9 @@ public class informDao extends baseDao {
 		return inf;
 		
 	}
+	/*
+	 * 删除通告
+	 */
 	public void delete(String informid) throws SQLException{
 		String sql="delete from inform where informid = ?";
 		this.ConnetOrcl();
@@ -65,6 +74,9 @@ public class informDao extends baseDao {
 		ps.setObject(1, informid);
 		ps.executeQuery();
 	}
+	/*
+	 * 通告详细
+	 */
 	public Information informcheck(String informid) throws SQLException{
 		Information inf =new Information();
 		String sql="select * from inform where informid =?";

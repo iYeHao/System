@@ -47,7 +47,7 @@ public class userdetailServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-			int userid= Integer.parseInt(request.getParameter("userid"));
+			String userid= request.getParameter("userid");
 			userImp imp = new userImp();
 			User user =new User();
 			user = imp.DetailShow(userid);

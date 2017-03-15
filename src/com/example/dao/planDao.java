@@ -13,7 +13,9 @@ public class planDao extends baseDao {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+	/*
+	 * 所有预案列表
+	 */
 	public ArrayList<Plan>show() throws SQLException{
 		ArrayList<Plan> plist = new ArrayList<Plan>();
 		String sql="select * from plan";
@@ -23,16 +25,19 @@ public class planDao extends baseDao {
 		ResultSet rs =ps.executeQuery();
 		while(rs.next())
 		{
-			plan.setPid(rs.getInt(1));
+			plan.setPid(rs.getString(1));
 			plan.setPname(rs.getString(4));
 			plan.setPtype(rs.getString(3));
 			plan.setPdate(rs.getDate(5));
-			plan.setUserid(rs.getInt(2));
+			plan.setUserid(rs.getString(2));
 			plist.add(plan);
 		}
 		return plist;
 	}
-	public ArrayList<Plan> DetailShow(int userid) throws SQLException{
+	/*
+	 * 当前用户所有的预案
+	 */
+	public ArrayList<Plan> DetailShow(String userid) throws SQLException{
 		String sql="select * from plan where userid =?";
 		ArrayList<Plan> planlist= new ArrayList<Plan>();
 		Plan plan=new Plan();
@@ -42,16 +47,19 @@ public class planDao extends baseDao {
 		ResultSet rs =ps.executeQuery();
 		while(rs.next())
 		{
-			plan.setPid(rs.getInt(1));
+			plan.setPid(rs.getString(1));
 			plan.setPname(rs.getString(4));
 			plan.setPtype(rs.getString(3));
 			plan.setPdate(rs.getDate(5));
-			plan.setUserid(rs.getInt(2));
+			plan.setUserid(rs.getString(2));
 			planlist.add(plan);
 		}
 		return planlist;
 	}
-	public Plan PlanCheck(int pid) throws SQLException{
+	/*
+	 * 预案详情
+	 */
+	public Plan PlanCheck(String pid) throws SQLException{
 		Plan plan =new Plan();
 		String sql="select * from plan where pid = ?";
 		this.ConnetOrcl();
@@ -59,11 +67,11 @@ public class planDao extends baseDao {
 		ps.setObject(1, pid);
 		java.sql.ResultSet rs =ps.executeQuery();
 		while(rs.next()){
-			plan.setPid(rs.getInt(1));
+			plan.setPid(rs.getString(1));
 			plan.setPname(rs.getString(4));
 			plan.setPtype(rs.getString(3));
 			plan.setPdate(rs.getDate(5));
-			plan.setUserid(rs.getInt(2));
+			plan.setUserid(rs.getString(2));
 		}
 	  String ssql="select * from users where userid= ?";
 	  java.sql.PreparedStatement pps =this.conn.prepareStatement(ssql);

@@ -19,7 +19,7 @@ public class UserDao extends baseDao{
 		java.sql.ResultSet rs = ps.executeQuery();
 		while(rs.next()){
 			User user=new User();
-			user.setUserid(rs.getInt(1));
+			user.setUserid(rs.getString(1));
 			user.setUpassword(rs.getString(4));
 			user.setUname(rs.getString(3));
 			user.setUemail(rs.getString(2));
@@ -30,7 +30,7 @@ public class UserDao extends baseDao{
 		}
 		return ulist;
 	}
-	public User DetailShow(int userid) throws SQLException{
+	public User DetailShow(String userid) throws SQLException{
 		User user =new User();
 		String sql="select * from users where userid = ?";
 		this.ConnetOrcl();
@@ -39,7 +39,7 @@ public class UserDao extends baseDao{
 		java.sql.ResultSet rs =ps.executeQuery();
 		while(rs.next()){
 			
-			user.setUserid(rs.getInt(1));
+			user.setUserid(rs.getString(1));
 			user.setUpassword(rs.getString(4));
 			user.setUname(rs.getString(3));
 			user.setUemail(rs.getString(2));
@@ -50,7 +50,7 @@ public class UserDao extends baseDao{
 		return user;
 		
 	}
-	public void Delete(int userid) throws SQLException{
+	public void Delete(String userid) throws SQLException{
 		String sql ="delete from plan where userid =?";
 		this.ConnetOrcl();
 		java.sql.PreparedStatement ps = this.conn.prepareStatement(sql);

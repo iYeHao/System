@@ -22,7 +22,7 @@ public class userImp {
 		return ulist;
 		
 	}
-	public User DetailShow(int userid){
+	public User DetailShow(String userid){
 		User user =new User();
 		UserDao dao =new UserDao();
 		try {
@@ -35,7 +35,7 @@ public class userImp {
 		}
 		return user;
 	}
-	public void Delete(int userid){
+	public void Delete(String userid){
 		UserDao dao = new UserDao();
 		try {
 			dao.Delete(userid);

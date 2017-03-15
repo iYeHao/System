@@ -11,8 +11,6 @@ String uname=(String)session1.getAttribute("uname");
 	@SuppressWarnings("unchecked")
 ArrayList<Field> flist =(ArrayList<Field>)request.getAttribute("flist");
 request.setAttribute("flist", flist);
-Field f =flist.get(0);
-request.setAttribute("f", f);
 %> 	 	
 <!doctype html>
 <html lang="en">

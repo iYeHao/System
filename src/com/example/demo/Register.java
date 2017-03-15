@@ -38,17 +38,6 @@ public class Register {
                 errors.put("uname", "*用户名为3-8位的字母");
             }
         }
-
-        if (this.upassword == null || this.upassword.trim().equals("")) {
-            isOk = false;
-            errors.put("upassword", "*密码不为空");
-        } else {
-            if (!this.upassword.matches("\\d{3,8}")) {
-                isOk = false;
-                errors.put("upassword", "*密码为3-8位数字");
-            }
-        }
-
         // private String password2; 两次密码要一致
         if (this.cpassword != null) {
             if (!this.cpassword.equals(this.upassword)) {
