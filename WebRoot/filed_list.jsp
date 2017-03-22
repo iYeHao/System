@@ -11,6 +11,8 @@ String uname=(String)session1.getAttribute("uname");
 	@SuppressWarnings("unchecked")
 ArrayList<Field> flist =(ArrayList<Field>)request.getAttribute("flist");
 request.setAttribute("flist", flist);
+int page_current=(Integer)request.getAttribute("page_current");
+request.setAttribute("page_current", page_current);
 %> 	 	
 <!doctype html>
 <html lang="en">
@@ -151,6 +153,16 @@ request.setAttribute("flist", flist);
           </c:forEach>
         </tbody>
       </table>
+     &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <input type="submit" onclick="location.href='FieldlistServlet?page_current=${page_current-1}'" value="上一页">
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <input type="submit" value="当前第${page_current}页">
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <input type="submit" onclick="location.href='FieldlistServlet?page_current=${page_current+1 }'" value="下一页">
+      
     </div>
     <!-- end of #tab1 -->
     <!-- end of #tab2 -->

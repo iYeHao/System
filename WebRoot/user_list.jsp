@@ -184,6 +184,7 @@ String uname=(String)session1.getAttribute("uname");
           </c:forEach>
         </tbody>
       </table>
+      
     </div>
     <!-- end of #tab2 -->
   </div>

@@ -93,7 +93,7 @@ public class adminDao extends baseDao {
 		return user;
 	}
 	/*
-	 * 查看用户列表
+	  * 查看用户列表
 	 */
 	public ArrayList<String> ShowUser() throws SQLException
 	{
@@ -111,4 +111,3 @@ public class adminDao extends baseDao {
 	}
 
 }
-

@@ -9,17 +9,53 @@ String uname=(String)session1.getAttribute("uname");
 	if(uname==null){uname="我的账户";}
 	request.setAttribute("uname", uname);
 	@SuppressWarnings("unchecked")
-    ArrayList<Information> list =(ArrayList<Information>)request.getAttribute("list");
+    ArrayList<Information> list =(ArrayList<Information>)session1.getAttribute("list");
     request.setAttribute("list", list);
+    int page_size=3; 
+    int page_total=list.size()/page_size+1;
+	request.setAttribute("page_total", page_total);
+	String current=request.getParameter("page_current");
+	int page_current=1;
+	if(current!=null){
+	page_current=Integer.parseInt(current);
+	}
+	if(page_current>page_total){
+	page_current=page_total;
+	}
+	if(page_current<=0){
+	page_current=1;
+	}
+	request.setAttribute("page_current", page_current);
+    ArrayList<Information> plist=new ArrayList<Information>();
+	request.setAttribute("page_size", page_size);
+    for(int i=0;i<page_size;i++){
+    if((i+(page_current-1)*page_size)<list.size())
+    plist.add(list.get((i+(page_current-1)*page_size)));
+    
+    }
+    request.setAttribute("plist", plist);
 %>
 <!doctype html>
 <html lang="en">
-
 <head>
+<script type="text/javascript">
+var page_current=<=page_current=>;
+var page_total=<=page_total=>;
+var page_size=<=page_size=>;
+var list_size=<=page_size=>;
+function pageprevious(list){
+page_current=page_current-1;
+for(var i=0;i<page_size;i++){
+if(((page_current-1)*page_size+i)<list_size)
+plist.add(list.get(((page_current-1)*page_size+i)));
+}
+request.setAttribute("plist",plist);
+}
+
+</script>
 	<meta charset="utf-8"/>
 	 <base href="<%=basePath%>">
 	<title>System of Emergency Plan</title>
-	
 	<link rel="stylesheet" href="css/layout.css" type="text/css" media="screen" />
 	<script src="js/jquery-1.5.2.min.js" type="text/javascript"></script>
 	<script src="js/hideshow.js" type="text/javascript"></script>
@@ -138,7 +174,7 @@ String uname=(String)session1.getAttribute("uname");
           </tr>
         </thead>
         <tbody>
-        <c:forEach  var="inf" items="${list}">
+        <c:forEach  var="inf" items="${plist}">
           <tr>
             <td><c:out value="${inf.title}"></c:out></td>
             <td><div class="divNoWrap2">
@@ -152,6 +188,15 @@ String uname=(String)session1.getAttribute("uname");
           </c:forEach>
         </tbody>
       </table>
+       &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <input type="submit" onclick="location.href='inform_list.jsp?page_current=${page_current-1}'" value="上一页">
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <input type="submit" value="当前第${page_current}页">
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <input type="submit" onclick="location.href='inform_list.jsp?page_current=${page_current+1}'" value="下一页">
     </div>
     <!-- end of #tab1 -->
     <!-- end of #tab2 -->

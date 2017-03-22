@@ -13,6 +13,7 @@ import com.example.demo.Field;
 
 public class FieldlistServlet extends HttpServlet {
 
+	private int page_current=1;
 	/**
 	 * 
 	 */
@@ -43,12 +44,39 @@ public class FieldlistServlet extends HttpServlet {
 	 * @throws ServletException if an error occurred
 	 * @throws IOException if an error occurred
 	 */
+	public void  pageCurrent(String current,int page_total){
+		if(current==null){
+			page_current=1;
+		}else{
+			page_current=Integer.parseInt(current);
+		}
+		if(page_current<=0){
+			page_current=1;
+		}else{
+			if(page_current>page_total){
+				page_current=page_total;
+			}else{
+			}
+		}
+		
+	}
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String current=request.getParameter("page_current");
 		filedImp imp =new filedImp();
 		ArrayList<Field> flist = new ArrayList<Field> ();
 		flist=imp.show();
-		request.setAttribute("flist", flist);
+		int page_size=6;
+		int page_total=flist.size()/page_size+1;
+		pageCurrent(current,page_total);
+		request.setAttribute("page_current", page_current);
+		ArrayList<Field> cflist =new ArrayList<Field>();
+		for(int i=0;i<page_size;i++){
+			if((i+(page_current-1)*page_size)<flist.size())
+			cflist.add(flist.get(i+(page_current-1)*page_size));
+		}
+		request.setAttribute("flist", cflist);
+		
 		request.getRequestDispatcher("/filed_list.jsp").forward(request, response);
 	
 	}

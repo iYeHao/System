@@ -9,8 +9,31 @@ String uname=(String)session1.getAttribute("uname");
 	if(uname==null){uname="我的账户";}
 	request.setAttribute("uname", uname);
 	@SuppressWarnings("unchecked")
-ArrayList<Plan> plist =(ArrayList<Plan>)request.getAttribute("plist");
-request.setAttribute("plist", plist);
+    ArrayList<Plan> list =(ArrayList<Plan>)session1.getAttribute("list");
+    request.setAttribute("list", list);
+    int page_size=3; 
+    int page_total=list.size()/page_size+1;
+	request.setAttribute("page_total", page_total);
+	String current=request.getParameter("page_current");
+	int page_current=1;
+	if(current!=null){
+	page_current=Integer.parseInt(current);
+	}
+	if(page_current>page_total){
+	page_current=page_total;
+	}
+	if(page_current<=0){
+	page_current=1;
+	}
+	request.setAttribute("page_current", page_current);
+    ArrayList<Plan> plist=new ArrayList<Plan>();
+	request.setAttribute("page_size", page_size);
+    for(int i=0;i<page_size;i++){
+    if((i+(page_current-1)*page_size)<list.size())
+    plist.add(list.get((i+(page_current-1)*page_size)));
+    
+    }
+    request.setAttribute("plist", plist);
 %>
 <!doctype html>
 <html lang="en">
@@ -151,6 +174,15 @@ request.setAttribute("plist", plist);
           </c:forEach>
         </tbody>
       </table>
+       &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <input type="submit" onclick="location.href='plan_list.jsp?page_current=${page_current-1}'" value="上一页">
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <input type="submit" value="当前第${page_current}页">
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <input type="submit" onclick="location.href='plan_list.jsp?page_current=${page_current+1}'" value="下一页">
     </div>
     <!-- end of #tab1 -->
     <!-- end of #tab2 -->

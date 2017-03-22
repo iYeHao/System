@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.example.daoimp.informImp;
 import com.example.demo.Information;
@@ -53,7 +54,8 @@ public class InformlistServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		request.setAttribute("list", list);
+		HttpSession session=request.getSession();
+		session.setAttribute("list", list);
 		request.getRequestDispatcher("/inform_list.jsp").forward(request, response);
 		
 	}

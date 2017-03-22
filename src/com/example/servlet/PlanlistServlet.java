@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.example.daoimp.planImp;
 import com.example.demo.Plan;
@@ -49,7 +50,8 @@ public class PlanlistServlet extends HttpServlet {
 			planImp imp =new planImp();
 			ArrayList<Plan> plist = new ArrayList<Plan>();
 			plist=imp.show();
-			request.setAttribute("plist",plist);
+			HttpSession session=request.getSession();
+			session.setAttribute("list", plist);
 			request.getRequestDispatcher("/plan_list.jsp").forward(request, response);
 	}
 
